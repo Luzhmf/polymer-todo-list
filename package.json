@@ -1,0 +1,25 @@
+{
+  "name": "polymer-todo",
+  "description": "test project for polymer",
+  "main": "polymer-todo.js",
+  "dependencies": {
+    "@polymer/lit-element": "^0.5.2",
+    "@polymer/polymer": "^3.0.0",
+    "browser-sync": "^2.24.6",
+    "concurrently": "^3.6.1",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@polymer/iron-demo-helpers": "^3.1.0",
+    "@polymer/test-fixture": "^4.0.2",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "wct-mocha": "^1.0.1"
+  },
+  "scripts": {
+    "start": "concurrently 'npm run serve' 'npm run watch'",
+    "serve": "polymer serve --port 8082",
+    "watch": "browser-sync start --proxy localhost:8082 --open \"src/components\" --files \"**/*.js\""
+  }
+}
