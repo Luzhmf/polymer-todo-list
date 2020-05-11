@@ -1,6 +1,9 @@
 import {LitElement, html} from '@polymer/lit-element';
+import '../models/todoItem'
 
 class todoItem extends LitElement{
+    _listItem: ListItem;
+    
     static get properties(){
         return {
             todoItem: Object
@@ -9,10 +12,10 @@ class todoItem extends LitElement{
 
     constructor(){
         super();
-        this.todoItem = {};
+        this._listItem = null;
     }
 
-    onRemove(id){
+    onRemove(id: String){
         this.dispatchEvent(new CustomEvent(
             'removeItem', 
             {
@@ -25,7 +28,7 @@ class todoItem extends LitElement{
         ));
     }
 
-    onDone(id){
+    onDone(id: String){
         this.dispatchEvent(new CustomEvent(
             'changeItem',
             {
@@ -39,7 +42,7 @@ class todoItem extends LitElement{
         this.requestRender();
     }
 
-    _render({todoItem}){
+    _render({ListItem}){
         return html`
         <style>
     .list-item {
@@ -102,11 +105,11 @@ class todoItem extends LitElement{
     }
     </style>
         <div class="list-item">
-            <input type="checkbox" checked="${todoItem.done}" on-click="${() => this.onDone(todoItem.id)}"/>
+            <input type="checkbox" checked="${ListItem.done}" on-click="${() => this.onDone(ListItem.id)}"/>
             <div class="item"> 
-                ${todoItem.item}
+                ${ListItem.item}
             </div>    
-            <button class="delete" on-click="${() => this.onRemove(todoItem.id)}"
+            <button class="delete" on-click="${() => this.onRemove(ListItem.id)}"
                 <strong>X</strong>
             </button>
         </div>

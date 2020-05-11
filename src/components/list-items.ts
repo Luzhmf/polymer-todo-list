@@ -3,6 +3,8 @@ import {repeat} from 'lit-html/lib/repeat.js';
 import './todo-item';
 
 class listItems extends LitElement{
+    _todoList: Array<ListItem>;
+    
     static get properties(){
         return {
             todoList: Array
@@ -11,7 +13,7 @@ class listItems extends LitElement{
 
     constructor(){
         super();
-        this.todoList = [];
+        this._todoList = [];
     }
 
     _render({todoList}){
@@ -55,7 +57,7 @@ class listItems extends LitElement{
             <div class="list">
                 <h2 class="title">Tarefas De Hoje</h2>
                 <div class="list-wr apper">
-                    ${repeat(this.todoList, (todo) => html`<todo-item todoItem=${todo}></todo-item>`)}
+                    ${repeat(this._todoList, (todo) => html`<todo-item todoItem=${todo}></todo-item>`)}
                 </div>
             </div>
         </div

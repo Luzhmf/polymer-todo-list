@@ -1,16 +1,20 @@
-import { LitElement, html } from '@polymer/lit-element'
+import {LitElement, html} from '@polymer/lit-element'
+import '../models/todoItem'
 
 class AddItem extends LitElement {
-    static get properties() {
+
+    _todoItemText: String;
+    _todoList: Array<ListItem>;
+
+    static get properties(){
         return {
-            todoList: Array,
-            todoItem: String
+            todoList: Array
         }
     }
 
     constructor() {
         super();
-        this.todoItem = '';
+        this._todoItemText = '';
 
     }
 
@@ -18,20 +22,20 @@ class AddItem extends LitElement {
         if (e.keyCode == 13) {
             this.onAddItem()
         } else {
-            this.todoItem = e.target.value;
+            this._todoItemText = e.target.value;
         }
 
-        console.log(this.todoItem);
+        console.log(this._todoItemText);
     }
 
     onAddItem() {
-        if (this.todoItem.length > 0) {
+        if (this._todoItemText.length > 0) {
             let storedList = JSON.parse(localStorage.getItem('todo-list'));
             storedList = storedList === null ? [] : storedList;
 
             storedList.push({
                 id: new Date().valueOf(),
-                item: this.todoItem,
+                item: this._todoItemText,
                 done: false
             });
 
@@ -47,7 +51,7 @@ class AddItem extends LitElement {
                         todoList: storedList 
                     } 
                 }))
-            this.todoItem = '';
+            this._todoItemText = '';
         }
     }
 
