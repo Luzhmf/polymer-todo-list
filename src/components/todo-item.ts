@@ -2,7 +2,7 @@ import {LitElement, html} from '@polymer/lit-element';
 import '../models/ListItem'
 
 class todoItem extends LitElement{
-    _listItem: ListItem;
+    listItem: Object;
     
     static get properties(){
         return {
@@ -12,7 +12,7 @@ class todoItem extends LitElement{
 
     constructor(){
         super();
-        this._listItem = new ListItem();
+        this.listItem = Object;
     }
 
     onRemove(id: String){
@@ -42,7 +42,7 @@ class todoItem extends LitElement{
         this.requestRender();
     }
 
-    _render({ListItem} : {ListItem: ListItem}){
+    _render({listItem} : {listItem: Object}){
         return html`
         <style>
     .list-item {
@@ -104,16 +104,18 @@ class todoItem extends LitElement{
         }
     }
     </style>
-        <div class="list-item">
-            <input type="checkbox" checked="${ListItem.done}" on-click="${() => this.onDone(ListItem.id)}"/>
-            <div class="item"> 
-                ${ListItem.item}
-            </div>    
-            <button class="delete" on-click="${() => this.onRemove(ListItem.id)}"
-                <strong>X</strong>
-            </button>
-        </div>
+    ${console.log(JSON.stringify(this.listItem))}
         `
+        //<div class="list-item">
+        //
+        //    <input type="checkbox" checked="${listItem.done}" on-click="${() => this.onDone(listItem.id)}"/>
+        //    <div class="item"> 
+        //        ${listItem.item}
+        //    </div>    
+        //    <button class="delete" on-click="${() => this.onRemove(listItem.id)}"
+        //        <strong>X</strong>
+        //    </button>
+        //</div>
     }
 }
 

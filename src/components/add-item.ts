@@ -24,8 +24,6 @@ class AddItem extends LitElement {
         } else {
             this._todoItemText = e.target.value;
         }
-
-        console.log(this._todoItemText);
     }
 
     onAddItem() {
@@ -39,9 +37,6 @@ class AddItem extends LitElement {
                 done: false
             });
 
-            console.log('new list:');
-            console.log(storedList);
-
             localStorage.setItem('todo-list', JSON.stringify(storedList));
             this.dispatchEvent(new CustomEvent('addItem', 
                 { 
@@ -51,6 +46,7 @@ class AddItem extends LitElement {
                         todoList: storedList 
                     } 
                 }))
+            console.log(storedList)
             this._todoItemText = '';
         }
     }

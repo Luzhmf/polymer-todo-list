@@ -8,7 +8,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "browser-sync": "^2.24.6",
     "concurrently": "^3.6.1",
-    "lit-html": "^0.10.0",
+    "lit-html": "^0.10.1",
     "lodash": "^4.17.15",
     "lodash-ts": "^1.2.7",
     "source-map-loader": "^0.2.4"
@@ -28,7 +28,7 @@
   "scripts": {
     "start": "concurrently 'npm run serve' 'npm run watch'",
     "serve": "polymer serve --port 8082",
-    "watch": "browser-sync start --proxy localhost:8082 --open \"src/components\" --files \"**/*.ts\"",
+    "watch": "browser-sync start --proxy localhost:8082 --open \"dist/src/components\" --files \"**/*.js\"",
     "build": "webpack --config webpack.config.js"
   }
 }
