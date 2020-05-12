@@ -16,7 +16,7 @@ class listItems extends LitElement{
         this._todoList = [];
     }
 
-    _render({todoList}){
+    _render(){
         return html`
         <style>
     .lists {
@@ -57,7 +57,7 @@ class listItems extends LitElement{
             <div class="list">
                 <h2 class="title">Tarefas De Hoje</h2>
                 <div class="list-wr apper">
-                    ${repeat(this._todoList, (todo) => html`<todo-item todoItem=${todo}></todo-item>`)}
+                    ${repeat(this._todoList, (todo: ListItem) => html`<todo-item todoItem=${todo}></todo-item>`)}
                 </div>
             </div>
         </div

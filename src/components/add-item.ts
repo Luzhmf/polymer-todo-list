@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
-import '../models/todoItem'
+import '../models/ListItem'
 
 class AddItem extends LitElement {
 
@@ -15,10 +15,10 @@ class AddItem extends LitElement {
     constructor() {
         super();
         this._todoItemText = '';
-
+        this._todoList = [];
     }
 
-    inputKeypress(e) {
+    inputKeypress(e: any) {
         if (e.keyCode == 13) {
             this.onAddItem()
         } else {
@@ -30,7 +30,7 @@ class AddItem extends LitElement {
 
     onAddItem() {
         if (this._todoItemText.length > 0) {
-            let storedList = JSON.parse(localStorage.getItem('todo-list'));
+            let storedList = JSON.parse(localStorage.getItem('todo-list')!);
             storedList = storedList === null ? [] : storedList;
 
             storedList.push({
@@ -55,7 +55,7 @@ class AddItem extends LitElement {
         }
     }
 
-    _render(props) {
+    _render(props: any) {
         return html`
         <style>
     .add {
@@ -185,7 +185,7 @@ class AddItem extends LitElement {
                 </div>
                 <div class="input-container">
                     <input value=${props.todoItem}
-                    on-keyup="${(e) => this.inputKeypress(e)}">
+                    on-keyup="${(e: any) => this.inputKeypress(e)}">
                     </input>
                     <button class="btn-enter" on-click="${() => this.onAddItem()}">Adicionar</button>
                 </div>

@@ -1,7 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import './add-item';
 import './list-items';
-import '../models/todoItem';
+import '../models/ListItem';
 
 class TodoApp extends LitElement {
     _todoList: Array<ListItem>;
@@ -14,7 +14,7 @@ class TodoApp extends LitElement {
 
     constructor() {
         super();
-        let list = JSON.parse(localStorage.getItem('todo-list'))
+        let list = JSON.parse(localStorage.getItem('todo-list')!)
         this._todoList = list === null ? [] :  list;
     }
 
@@ -23,10 +23,10 @@ class TodoApp extends LitElement {
       }
 
     _firstRendered(){
-        this.addEventListener('addItem', (e: CustomEvent) => {
+        (this as any).addEventListener('addItem', (e: CustomEvent) => {
             this._todoList = e.detail.todoList; 
         })
-        this.addEventListener('removeItem', (e: CustomEvent) => {
+        (this as any).addEventListener('removeItem', (e: CustomEvent) => {
             let index = this._todoList.map(function(item) 
             {
                 return item.id
@@ -35,7 +35,7 @@ class TodoApp extends LitElement {
             this._todoList = this.deepClone(this._todoList);
             localStorage.setItem('todo-list', JSON.stringify(this._todoList));
         })
-        this.addEventListener('changeItem', (e: CustomEvent) => {
+        (this as any).addEventListener('changeItem', (e: CustomEvent) => {
             let index = this._todoList.map(function(item) 
             {
                 return item.id
@@ -45,7 +45,7 @@ class TodoApp extends LitElement {
         })
     }
 
-    _render({todoList}) {
+    _render({todoList} : {todoList: Array<ListItem>}) {
         return html`
         <add-item></add-item>
         <list-items todoList=${todoList}></list-items>
@@ -54,4 +54,3 @@ class TodoApp extends LitElement {
 }
 
 customElements.define('todo-app', TodoApp)
-export = TodoApp;

@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element';
-import '../models/todoItem'
+import '../models/ListItem'
 
 class todoItem extends LitElement{
     _listItem: ListItem;
@@ -12,7 +12,7 @@ class todoItem extends LitElement{
 
     constructor(){
         super();
-        this._listItem = null;
+        this._listItem = new ListItem();
     }
 
     onRemove(id: String){
@@ -42,7 +42,7 @@ class todoItem extends LitElement{
         this.requestRender();
     }
 
-    _render({ListItem}){
+    _render({ListItem} : {ListItem: ListItem}){
         return html`
         <style>
     .list-item {
