@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
-//import {repeat} from 'lit-html/lib/repeat.js';
+import {repeat} from 'lit-html/lib/repeat.js';
 import './todo-item';
 
 class listItems extends LitElement{
@@ -16,7 +16,7 @@ class listItems extends LitElement{
         this.todoList = [];
     }
 
-    _render({ todoList } : {todoList: any}){
+    _render({ todoList } : {todoList: Array<ListItem>}){
         return html`
         <style>
     .lists {
@@ -53,16 +53,15 @@ class listItems extends LitElement{
         }
     }
     </style>
-        <div class="lists">
-            <div class="list">
-                <h2 class="title">Tarefas De Hoje</h2>
-                <div class="list-wr apper">
-                <todo-item todoItem=${todoList[1]}></todo-item>
-                </div>
+    <div class="lists">
+        <div class="list">
+            <h2 class="title">Tarefas De Hoje</h2>
+            <div class="list-wrapper">
+            ${repeat(todoList, (todo) => html`<h1>${todo}</h1>`)}
             </div>
-        </div
-        `
-        //${repeat(todoList, (todo) => html`<todo-item todoItem=${todo}></todo-item>`)}
+        </div>
+    </div
+    `
     }
 }
 

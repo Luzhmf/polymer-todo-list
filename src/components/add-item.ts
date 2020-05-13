@@ -46,7 +46,6 @@ class AddItem extends LitElement {
                         todoList: storedList 
                     } 
                 }))
-            console.log(storedList)
             this._todoItemText = '';
         }
     }

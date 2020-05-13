@@ -1,25 +1,25 @@
-import {LitElement, html} from '@polymer/lit-element';
+import { LitElement, html } from '@polymer/lit-element';
 import '../models/ListItem'
 
-class todoItem extends LitElement{
-    listItem: Object;
-    
-    static get properties(){
+class todoItem extends LitElement {
+    todoItem: Object;
+
+    static get properties() {
         return {
             todoItem: Object
         }
     }
 
-    constructor(){
+    constructor() {
         super();
-        this.listItem = Object;
+        this.todoItem = {};
     }
 
-    onRemove(id: String){
+    onRemove(id: String) {
         this.dispatchEvent(new CustomEvent(
-            'removeItem', 
+            'removeItem',
             {
-                bubbles: true ,
+                bubbles: true,
                 composed: true,
                 detail: {
                     itemId: id
@@ -28,7 +28,7 @@ class todoItem extends LitElement{
         ));
     }
 
-    onDone(id: String){
+    onDone(id: String) {
         this.dispatchEvent(new CustomEvent(
             'changeItem',
             {
@@ -42,7 +42,7 @@ class todoItem extends LitElement{
         this.requestRender();
     }
 
-    _render({listItem} : {listItem: Object}){
+    _render({ todoItem }: { todoItem: ListItem }) {
         return html`
         <style>
     .list-item {
@@ -104,18 +104,18 @@ class todoItem extends LitElement{
         }
     }
     </style>
-    ${console.log(JSON.stringify(this.listItem))}
-        `
-        //<div class="list-item">
-        //
-        //    <input type="checkbox" checked="${listItem.done}" on-click="${() => this.onDone(listItem.id)}"/>
-        //    <div class="item"> 
-        //        ${listItem.item}
-        //    </div>    
-        //    <button class="delete" on-click="${() => this.onRemove(listItem.id)}"
-        //        <strong>X</strong>
-        //    </button>
-        //</div>
+    <div class="list-item">
+        <input type="checkbox" checked="${todoItem.done}" on-click="${() => this.onDone(todoItem.id)}"/>
+        <div class="item"> 
+            ${todoItem.item}
+        </div>    
+        <button class="delete" on-click="${() => this.onRemove(todoItem.id)}"
+            <strong>X</strong>
+        </button>
+    </div>
+
+
+    `
     }
 }
 
