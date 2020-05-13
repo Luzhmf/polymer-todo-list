@@ -1,22 +1,25 @@
-import {LitElement, html} from '@polymer/lit-element';
+import { LitElement, html } from '@polymer/lit-element';
+import '../models/ListItem'
 
-class todoItem extends LitElement{
-    static get properties(){
+class todoItem extends LitElement {
+    todoItem: Object;
+
+    static get properties() {
         return {
             todoItem: Object
         }
     }
 
-    constructor(){
+    constructor() {
         super();
         this.todoItem = {};
     }
 
-    onRemove(id){
+    onRemove(id: String) {
         this.dispatchEvent(new CustomEvent(
-            'removeItem', 
+            'removeItem',
             {
-                bubbles: true ,
+                bubbles: true,
                 composed: true,
                 detail: {
                     itemId: id
@@ -25,7 +28,7 @@ class todoItem extends LitElement{
         ));
     }
 
-    onDone(id){
+    onDone(id: String) {
         this.dispatchEvent(new CustomEvent(
             'changeItem',
             {
@@ -39,7 +42,7 @@ class todoItem extends LitElement{
         this.requestRender();
     }
 
-    _render({todoItem}){
+    _render({ todoItem }: { todoItem: ListItem }) {
         return html`
         <style>
     .list-item {
@@ -101,16 +104,19 @@ class todoItem extends LitElement{
         }
     }
     </style>
-        <div class="list-item">
-            <input type="checkbox" checked="${todoItem.done}" on-click="${() => this.onDone(todoItem.id)}"/>
-            <div class="item"> 
-                ${todoItem.item}
-            </div>    
-            <button class="delete" on-click="${() => this.onRemove(todoItem.id)}"
-                <strong>X</strong>
-            </button>
-        </div>
-        `
+    <div class="list-item">
+        ${console.log("item display")}
+        <input type="checkbox" checked="${todoItem.done}" on-click="${() => this.onDone(todoItem.id)}"/>
+        <div class="item"> 
+            ${todoItem.item}
+        </div>    
+        <button class="delete" on-click="${() => this.onRemove(todoItem.id)}"
+            <strong>X</strong>
+        </button>
+    </div>
+
+
+    `
     }
 }
 

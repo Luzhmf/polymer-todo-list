@@ -1,42 +1,45 @@
-import { LitElement, html } from '@polymer/lit-element'
+import {LitElement, html} from '@polymer/lit-element'
+import '../models/ListItem'
 
 class AddItem extends LitElement {
-    static get properties() {
+
+    _todoItemText: String;
+    _todoList: Array<ListItem>;
+
+    static get properties(){
         return {
-            todoList: Array,
-            todoItem: String
+            _todoList: Array
         }
+    }
+
+    deepClone<T>(obj: T): T {
+        return JSON.parse(JSON.stringify(obj)) as T;
     }
 
     constructor() {
         super();
-        this.todoItem = '';
-
+        this._todoItemText = '';
+        this._todoList = [];
     }
 
-    inputKeypress(e) {
+    inputKeypress(e: any) {
         if (e.keyCode == 13) {
             this.onAddItem()
         } else {
-            this.todoItem = e.target.value;
+            this._todoItemText = e.target.value;
         }
-
-        console.log(this.todoItem);
     }
 
     onAddItem() {
-        if (this.todoItem.length > 0) {
-            let storedList = JSON.parse(localStorage.getItem('todo-list'));
+        if (this._todoItemText.length > 0) {
+            let storedList = JSON.parse(localStorage.getItem('todo-list')!);
             storedList = storedList === null ? [] : storedList;
 
             storedList.push({
                 id: new Date().valueOf(),
-                item: this.todoItem,
+                item: this._todoItemText,
                 done: false
             });
-
-            console.log('new list:');
-            console.log(storedList);
 
             localStorage.setItem('todo-list', JSON.stringify(storedList));
             this.dispatchEvent(new CustomEvent('addItem', 
@@ -47,11 +50,12 @@ class AddItem extends LitElement {
                         todoList: storedList 
                     } 
                 }))
-            this.todoItem = '';
+            this._todoItemText = '';
+            this._todoList = this.deepClone(this._todoList);
         }
     }
 
-    _render(props) {
+    _render(props: any) {
         return html`
         <style>
     .add {
@@ -181,7 +185,7 @@ class AddItem extends LitElement {
                 </div>
                 <div class="input-container">
                     <input value=${props.todoItem}
-                    on-keyup="${(e) => this.inputKeypress(e)}">
+                    on-keyup="${(e: any) => this.inputKeypress(e)}">
                     </input>
                     <button class="btn-enter" on-click="${() => this.onAddItem()}">Adicionar</button>
                 </div>
