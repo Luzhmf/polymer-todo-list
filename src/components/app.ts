@@ -4,7 +4,7 @@ import './list-items';
 import '../models/ListItem';
 
 class TodoApp extends LitElement {
-    _todoList: Array<ListItem>;
+    todoList: Array<ListItem>;
 
     static get properties() {
         return {
@@ -15,7 +15,7 @@ class TodoApp extends LitElement {
     constructor() {
         super();
         let list = JSON.parse(localStorage.getItem('todo-list')!)
-        this._todoList = list === null ? [] : list;
+        this.todoList = list === null ? [] : list;
     }
 
     deepClone<T>(obj: T): T {
@@ -24,31 +24,35 @@ class TodoApp extends LitElement {
 
     _firstRendered() {
         this.addEventListener('addItem', ((e: CustomEvent) => {
-            this._todoList = e.detail.todoList;
+            console.log("new-item...")
+            console.log(this.todoList);
+            this.todoList = e.detail.todoList;
         }) as EventListener);
 
         this.addEventListener('removeItem', ((e: CustomEvent) => {
-            let index = this._todoList.map(function (item) {
+            console.log("remove-item...")
+            let index = this.todoList.map(function (item) {
                 return item.id
             }).indexOf(e.detail.itemId);
-            this._todoList.splice(index, 1);
-            this._todoList = this.deepClone(this._todoList);
-            localStorage.setItem('todo-list', JSON.stringify(this._todoList));
+            this.todoList.splice(index, 1);
+            this.todoList = this.deepClone(this.todoList);
+            localStorage.setItem('todo-list', JSON.stringify(this.todoList));
         }) as EventListener);
 
         this.addEventListener('changeItem', ((e: CustomEvent) => {
-            let index = this._todoList.map(function (item) {
+            console.log("change-item...")
+            let index = this.todoList.map(function (item) {
                 return item.id
             }).indexOf(e.detail.itemId);
-            this._todoList[index].done = !this._todoList[index].done;
-            localStorage.setItem('todo-list', JSON.stringify(this._todoList));
+            this.todoList[index].done = !this.todoList[index].done;
+            localStorage.setItem('todo-list', JSON.stringify(this.todoList));
         }) as EventListener);
     }
 
-    _render() {        
+    _render() {
         return html`
         <add-item></add-item>
-        <list-items todoList=${this._todoList}></list-items>
+        <list-items todoList=${this.todoList}></list-items>
         `;
     }
 }

@@ -8,8 +8,12 @@ class AddItem extends LitElement {
 
     static get properties(){
         return {
-            todoList: Array
+            _todoList: Array
         }
+    }
+
+    deepClone<T>(obj: T): T {
+        return JSON.parse(JSON.stringify(obj)) as T;
     }
 
     constructor() {
@@ -47,6 +51,7 @@ class AddItem extends LitElement {
                     } 
                 }))
             this._todoItemText = '';
+            this._todoList = this.deepClone(this._todoList);
         }
     }
 

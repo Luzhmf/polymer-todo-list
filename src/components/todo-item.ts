@@ -105,6 +105,7 @@ class todoItem extends LitElement {
     }
     </style>
     <div class="list-item">
+        ${console.log("item display")}
         <input type="checkbox" checked="${todoItem.done}" on-click="${() => this.onDone(todoItem.id)}"/>
         <div class="item"> 
             ${todoItem.item}
